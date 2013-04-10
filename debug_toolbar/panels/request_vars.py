@@ -42,8 +42,8 @@ class RequestVarsDebugPanel(DebugPanel):
             match = resolve(self.request.path)
             func, args, kwargs = match
             view_info['view_func'] = get_name_from_obj(func)
-            view_info['view_args'] = args
-            view_info['view_kwargs'] = kwargs
+            view_info['view_args'] = tuple(map(str, args))
+            view_info['view_kwargs'] = dict([(key, str(arg)) for (key, arg) in kwargs.iteritems()])
             view_info['view_urlname'] = getattr(match, 'url_name',
                                                 _('<unavailable>'))
         except Http404:
